@@ -19,7 +19,7 @@ OTP = Entry(sign_up_window)
 passwords = pd.read_sql_table('accounts',engine,columns=['password_'])
 usernames = pd.read_sql_table('accounts',engine,columns=['username'])
 def window():
-    global username 
+    global username    
     global password
     global passwords 
     global usernames
@@ -30,41 +30,46 @@ def window():
     def Login():
         global good_pass
         global good_username
-        Label(login_window,text='Usermname').pack()
+        Label(login_window,text='Username').pack()
         username.pack()
-        Label(login_window,text='Password')
+        Label(login_window,text='Password').pack()
         password.pack()
-        for user in usernames:
-            if username.get() not in usernames:
-                notification.Notify(
-                    title = 'FAIL',
-                    message = 'BAD USERNAME',
-                    app_icon=None,
-                    toast = False
-                )
-                good_username = False
-            elif user in usernames:
-                good_username = True
-        for pas in passwords:
-            if password.get() not in passwords:
-                notification.Notify(
-                    title = 'FAIL',
-                    message = 'BAD PASSWORD',
-                    app_icon=None,
-                    toast = False
+        def login():
+            global good_pass
+            global good_username
+            for user in usernames:
+                if username.get() not in usernames:
+                    notification.Notify(
+                        title = 'FAIL',
+                        message = 'BAD USERNAME',
+                        app_icon=None,
+                        toast = False
                     )
-                good_pass = False 
-            elif password.get() in passwords:
-                good_pass = True 
-        if good_pass == True and good_username == True :
-            notification.Notify(
-                    title = 'Success',
-                    message = 'successfully logged in :)',
-                    app_icon=None,
-                    toast = False
-                )
+                    good_username = False
+                elif username.get() in usernames:
+                    good_username = True
+            for pas in passwords:
+                if password.get() not in passwords:
+                    notification.Notify(
+                        title = 'FAIL',
+                        message = 'BAD PASSWORD',
+                        app_icon=None,
+                        toast = False
+                        )
+                    good_pass = False 
+                elif password.get() in passwords:
+                    good_pass = True 
+            if good_pass == True and good_username == True :
+                notification.Notify(
+                        title = 'Success',
+                        message = 'successfully logged in :)',
+                        app_icon=None,
+                        toast = False
+                    )
+        login_window.mainloop()
+        Button(login_window,text='LOGIN',command=login).pack()
     def sign_up():
-        Otps = range(5000,10000)
+        Otps = list(range(5000,10000))
         shuffle(Otps)
         x = Otps[6]
         Label(sign_up_window,text='Username').pack()
@@ -103,6 +108,10 @@ def window():
                 app_icon = None,
                 toast = False 
             )
-
-
-        
+        sign_up_window.mainloop()
+        Button(sign_up_window,text='Send otp',command=send_otp).pack()
+    Button(main_window,text='Login',command=Login).pack()
+    Button(main_window,text='Sign up',command=sign_up).pack()
+    main_window.mainloop()
+if __name__ == '__main__':
+    window()
