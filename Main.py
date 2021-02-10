@@ -4,6 +4,7 @@ from tkinter import *
 from plyer import notification
 import smtplib
 from random import shuffle
+'''imported required libs'''
 good_username = False
 good_pass = False
 engine = sqlalchemy.create_engine('mysql+pymysql://root:raunakcodes2625@localhost:3306/xyz')
@@ -19,10 +20,13 @@ New_Username = Entry(sign_up_window)
 New_password = Entry(sign_up_window)
 New_Email = Entry(sign_up_window)
 OTP = Entry(sign_up_window)
+'''some tkinter work and connecting to database'''
 username_query = 'SELECT username FROM accounts'
 password_query = 'SELECT password_ FROM accounts'
+'''making sql queries to execute later'''
 usernames = str(pd.read_sql_query(username_query,engine)).split()
 passwords = str(pd.read_sql_query(password_query,engine)).split()
+'''executing sql queries and making lists of usernames and passwords'''
 def window():
     global username    
     global password
@@ -31,7 +35,7 @@ def window():
     global good_username
     global good_pass
     global login_window
-
+#main window func 
     def Login():
         global good_pass
         global good_username
@@ -39,7 +43,9 @@ def window():
         username.pack()
         Label(login_window,text='Password',fg='blue').pack()
         password.pack()
+        # login window front end work
         def login():
+            '''logic for logging in'''
             global good_pass
             global good_username
             for user in usernames:
@@ -52,10 +58,12 @@ def window():
                 if password.get() not in passwords:
                     Label(login_window,text='*incorrect password',bg='red').pack()
                     good_pass = False 
-                elif password.get() in passwords:
+                elif password.get() in passwords and passwords.index(password.get()) == usernames.index(username.get()):
                     good_pass = True 
             if good_pass == True and good_username == True :
                 Label(login_window,text='SIGN IN SUCCESSFULLY',bg='blue').pack()
+            else:
+                Label(login_window,text='bad username or password',fg='red').pack()
         Button(login_window,text='LOGIN',command=login,bg='blue').pack()
         login_window.mainloop()
     def sign_up():
