@@ -1,3 +1,7 @@
+# Hi This is Raunak singh a student of class 9 
+# This is one of my projects which is basically a login system 
+# to contact me gmail - raunakprogrammer@gamil.com or raunak.priya.dinkar@gmail.com
+#Github - raunak832
 import pandas as pd
 import sqlalchemy
 from tkinter import *
@@ -66,7 +70,9 @@ def window():
                 Label(login_window,text='bad username or password',fg='red').pack()
         Button(login_window,text='LOGIN',command=login,bg='blue').pack()
         login_window.mainloop()
+        #mainloop and a button to open login window 
     def sign_up():
+        #for signing up 
         Otps = list(range(5000,10000))
         shuffle(Otps)
         x = Otps[6]
@@ -78,7 +84,9 @@ def window():
         New_Email.pack()
         Label(sign_up_window,text='OTP',fg='red').pack()
         OTP.pack()
+        # creates the sign up window 
         def send_otp():
+            #sends a otp to mail
             smtp_object = smtplib.SMTP('smtp.gmail.com',587)
             smtp_object.ehlo()
             smtp_object.starttls()
@@ -98,11 +106,16 @@ def window():
                 Label(sign_up_window,text='SIGNED up !',bg='blue').pack()
             else:
                 Label(sign_up_window,text='BAD OTP',bg='red').pack()
+            #verifies and signs you in 
         Button(sign_up_window,text='Send otp',command=send_otp,bg='green').pack()
         Button(sign_up_window,text='SIGN UP', command=sign,bg='purple').pack()
         sign_up_window.mainloop()
+        #mainloop and some buttons
     Button(main_window,text='Login',command=Login,bg='blue').pack()
     Button(main_window,text='Sign up',command=sign_up,bg='red').pack()
     main_window.mainloop()
+    #mainloop for main window 
+    #some buttons
 if __name__ == '__main__':
     window()
+#Done!
